@@ -1,39 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>{% block title %}My amazing site{% endblock %}</title>
-</head>
+<div id="myModal" class="modal hide">
+    <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create order</h4>
+            </div>
+            <form action="{% url 'exchange:create_sheet' %}" method="post">
+                <table align="center" valign="center">
+                    <tr>
+                        <td>
+                            {{ form.source_currency.errors }}
+                            <label for="{{ form.source_currency.id_for_label }}">我有</label>
+                            {{ form.source_currency }}
+                        </td>
+                        <td>
+                            {{ form.source_amount.errors }}
+                            <label for="{{ form.source_amount.id_for_label }}">金額</label>
+                            {{ form.source_amount }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ form.target_currency.errors }}
+                            <label for="{{ form.target_currency.id_for_label }}">想換</label>
+                            {{ form.target_currency }}
+                        </td>
+                        <td>
+                            {{ form.target_amount.errors }}
+                            <label for="{{ form.target_amount.id_for_label }}">金額</label>
+                            {{ form.target_amount }}
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+</div>
 
-<body>
-    <form action="{% url 'exchange:create_sheet' %}" method="post">
-        {% csrf_token %}
-        <table align="center" valign="center">
-        <tr>
-            <td>
-                {{ form.source_currency.errors }}
-                <label for="{{ form.source_currency.id_for_label }}">我有</label>
-                {{ form.source_currency }}
-            </td>
-            <td>
-                {{ form.source_amount.errors }}
-                <label for="{{ form.source_amount.id_for_label }}">金額</label>
-                {{ form.source_amount }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{ form.target_currency.errors }}
-                <label for="{{ form.target_currency.id_for_label }}">想換</label>
-                {{ form.target_currency }}
-            </td>
-            <td>
-                {{ form.target_amount.errors }}
-                <label for="{{ form.target_amount.id_for_label }}">金額</label>
-                {{ form.target_amount }}
-            </td>
-        </tr>
-        <tr><td><input type="submit" value="Submit" /></td></tr>
-        </table>
-    </form>
-</body>
-</html>
+<script>
+    $(function(){
+       $('create-sheet-form').on('submit', function(e){
+            e.preventDefault();
+            $.ajax({
+                url: "/exchange/create_sheet",
+                type: "POST",
+                data: $("create-sheet-form").serialize(),
+                success: function(data){
+                    alert("Successfully submitted.")
+                }
+            });
+       }); 
+    });
+</script>

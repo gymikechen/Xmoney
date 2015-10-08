@@ -8,4 +8,3 @@ class Sheet(models.Model):
     source_amount = models.IntegerField(default=0)
     target_currency = models.CharField(max_length=3)
     target_amount = models.IntegerField(default=0)
-    city = models.CharField(max_length=10)

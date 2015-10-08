@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'Xmoney.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mike_db',
+        'USER': 'root',
+        'PASSWORD': 'wclab12345',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
